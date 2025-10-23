@@ -8,7 +8,7 @@
 
 {% set cpuATM = nio_groups * nio_tasks_per_group + nproc_x * nproc_y  %}
 
-{% set projectid = "k10189" %}
+{% set projectid = "k10167" %}
 
 [scheduling]
     [[graph]]
@@ -100,6 +100,7 @@
             --account={{projectid}}
             --nodes = 1
             --ntasks = {{ cpuPerNode }}
+            --chdir = /scratch/masabas/bandwidth
 
     [[WRF]]
         execution time limit = PT5H
@@ -108,6 +109,7 @@
             {% set nodes = (cpuATM + cpuPerNode - 1) // cpuPerNode %}
             --nodes={{ nodes }}
             --ntasks={{ cpuATM }}
+            --chdir = /scratch/masabas/bandwidth
         [[[environment]]]
             FI_CXI_RX_MATCH_MODE=hybrid
             run_cmd = "srun -n {{ cpuATM }} --distribution=block:block --hint=nomultithread"
@@ -123,6 +125,7 @@
             --ntasks = 1
             # --partition=shared
             --mem=8G
+            --chdir = /scratch/masabas/bandwidth
 
     [[viz<vizfld>, SUBMIT_BATCH]]
         execution time limit = PT3H
@@ -130,6 +133,7 @@
             --account={{projectid}}
             --nodes = 1
             --ntasks = {{cpuPerNode}}
+            --chdir = /scratch/masabas/bandwidth
         [[[environment]]]
             NTASKS={{cpuPerNode}}
 

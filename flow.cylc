@@ -61,9 +61,9 @@
 {% endfor %}
 
 [runtime]
-
     [[root]]
-	execution retry delays = PT10M, PT2H
+    	execution retry delays = PT10M, PT2H
+        submission retry delays = PT10M, PT2H
         [[[mail]]]
             to = {{ ADMIN_EMAILS }}
         [[[events]]]

@@ -3,9 +3,10 @@
 {% set HMEMBERS = 11 %}   #11
 {% set HYEARS = 20 %}
 {% set REFORECAST = 0 %}
-{% set initialCyclePoint = '2025-05-29' %}
-{% set finalCyclePoint = '2025-06-02' %}
-{% set cycles = "P1W", "R/^+P4D/P1W" %}
+{% set initialCyclePoint = '2025-10-23' %}
+{% set finalCyclePoint = '2025-10-23' %}
+{% set cycles = "P1W", "R/^+P3D/P1W" %} # first Monday of a Week
+{% set cycles = "P1W", "R/^+P4D/P1W" %} # first Thursday of a Week
 {% set FCSTDURATION = "P46D" %}
 {% set FORCING_DATA_DIR='/scratch/masabas/k10021/k1477/masabas/workS2S/ecmwfs2s' %}
 {% set ADMIN_EMAILS = "sateesh.masabathini@kaust.edu.sa,prajeesh.athippattagopinathan@kaust.edu.sa" %}
