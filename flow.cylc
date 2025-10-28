@@ -73,6 +73,7 @@
             WRF_DIR=** site specific **
             CYCLE_DIR=${CYLC_WORKFLOW_WORK_DIR}/${CYLC_TASK_CYCLE_POINT}
             CYCLE_SHARE_DIR=${CYLC_WORKFLOW_SHARE_DIR}/${CYLC_TASK_CYCLE_POINT}
+            CYCLE_ARCHIVE_DIR=/scratch/masabas/data/s2s_share/${CYLC_TASK_CYCLE_POINT}
             ETC_DIR=${CYLC_WORKFLOW_RUN_DIR}/etc
             FIX_DIR=${CYLC_WORKFLOW_RUN_DIR}/fix
             FCST_START_TIME=${CYLC_TASK_CYCLE_POINT}
@@ -95,8 +96,10 @@
     [[FORECAST_MEMBER]]
         [[[environment]]]
             SHARE_DIR=${CYCLE_SHARE_DIR}/F
+            ARCHIVE_DIR=${CYCLE_ARCHIVE_DIR}/F
             memN=$CYLC_TASK_PARAM_mem
             MEM_SHARE_DIR=${SHARE_DIR}/mem${memN}
+            MEM_ARCHIVE_DIR=${ARCHIVE_DIR}/mem${memN}
             syyyy=$iyyyy
 
     [[REFORECAST_MEMBER]]
@@ -104,7 +107,9 @@
             memN=$CYLC_TASK_PARAM_memh
             rfN=$CYLC_TASK_PARAM_rf
             SHARE_DIR=${CYCLE_SHARE_DIR}/H/rf${rfN}
+            ARCHIVE_DIR=${CYCLE_ARCHIVE_DIR}/H/rf${rfN}
             MEM_SHARE_DIR=${SHARE_DIR}/mem${memN}
+            MEM_ARCHIVE_DIR=${ARCHIVE_DIR}/mem${memN}
             syyyy=$(( $iyyyy - $rfN ))
 
     [[GET_FORCING]]
@@ -337,6 +342,8 @@
     [[CLEAN_UP]]
         script = """
             cd $input_dir
+            mkdir -p ${MEM_ARCHIVE_DIR}/merge_time/
+            cp merge_time/surface_d01_U10.nc merge_time/surface_d01_V10.nc  ${MEM_ARCHIVE_DIR}/merge_time/
             rm -rf wrf_out wrf_input metgrid_inputs real_inputs
         """
         [[[environment]]]
