@@ -301,7 +301,7 @@
 	U=$input_dir/surface_d01_U10.nc
 	V=$input_dir/surface_d01_V10.nc
 	WIND=$input_dir/surface_d01_WIND10.nc
-        echo "cdo -setname,WIND10 -sqrt -add -sqr $U -sqr $V $WIND10" > $jobscript
+        echo "cdo -setname,WIND10 -sqrt -add -sqr $U -sqr $V $WIND" > $jobscript
         chmod +x $jobscript
         """
         [[[environment]]]

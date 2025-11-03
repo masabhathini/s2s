@@ -137,7 +137,7 @@
         [[[environment]]]
             NTASKS={{cpuPerNode}}
 
-    [[ACC2RATE, RH2, RAIN, create_meta_data, plot_viz_data<vizfld>]]
+    [[ACC2RATE, RH2, RAIN, WINDSPEED, create_meta_data, plot_viz_data<vizfld>]]
         platform=shaheennew_login
 
     [[push_data]]
