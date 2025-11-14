@@ -1,4 +1,4 @@
-#!jinja2
+#!/inja2
 
 {% set cpuPerNode=192 %}
 {% set nio_groups=4 %}
@@ -128,7 +128,7 @@
             --chdir = /scratch/masabas/bandwidth
 
     [[viz<vizfld>, SUBMIT_BATCH]]
-        execution time limit = PT3H
+        execution time limit = PT2H
         [[[directives]]]
             --account={{projectid}}
             --nodes = 1
