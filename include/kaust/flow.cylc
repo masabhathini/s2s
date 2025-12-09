@@ -16,9 +16,11 @@
 [runtime]
     [[root]]
         init-script = """
-            module swap PrgEnv-cray PrgEnv-intel/8.4.0
+            module swap PrgEnv-cray PrgEnv-intel
+            module load intel
             module load craype-hugepages4M
-            module load cray-netcdf
+            module load cray-hdf5 cray-netcdf cray-parallel-netcdf flex
+            module list
             # for wgrib, cdo, nco
             export PATH="${MY_SW}/micromamba/envs/operS2S/bin:$PATH"
 
