@@ -369,7 +369,7 @@
         script = """
             cd $input_dir
             mkdir -p ${MEM_ARCHIVE_DIR}/merge_time/
-            cp merge_time/surface_d01_U10.nc merge_time/surface_d01_V10.nc  ${MEM_ARCHIVE_DIR}/merge_time/
+            cp merge_time/surface_d01_U10.nc merge_time/surface_d01_V10.nc merge_time/surface_d01_OLR.nc merge_time/surface_d01_RAINC.nc merge_time/surface_d01_RAINNC.nc  ${MEM_ARCHIVE_DIR}/merge_time/
             rm -rf wrf_out wrf_input metgrid_inputs real_inputs
         """
         [[[environment]]]
