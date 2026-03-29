@@ -8,7 +8,7 @@
 
 {% set cpuATM = nio_groups * nio_tasks_per_group + nproc_x * nproc_y  %}
 
-{% set projectid = "k10189" %}
+{% set projectid = "k10127" %}
 
 [scheduling]
     [[graph]]
@@ -25,6 +25,14 @@
             export PATH="${MY_SW}/micromamba/envs/operS2S/bin:$PATH"
 
         """
+        post-script = """
+            set -uex
+            if ls * >/dev/null 2>&1; then
+                lfs migrate -p capacity *
+            else
+                echo "No files found"
+            fi
+            """
         platform=shaheennew
         [[[environment]]]
             WPS_DIR=${MY_SW}/S2S/WPS
