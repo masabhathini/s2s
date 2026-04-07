@@ -32,15 +32,15 @@
 #            else
 #                echo "No files found"
 #            fi
-            sbatch \
-              --job-name=lfsmigrate.${CYLC_TASK_CYCLE_POINT}.${CYLC_TASK_NAME} \
-              --output=log_lfsmigrate.${CYLC_TASK_CYCLE_POINT}.${CYLC_TASK_NAME}.txt \
-              --partition=workq \
-              --account={{projectid}} \
-              --time=23:59:00 \
-              --wrap=" set -uex && \
-                    cd ${CYLC_WORKFLOW_WORK_DIR}/${CYLC_TASK_CYCLE_POINT}/${CYLC_TASK_NAME} && \
-                    lfs migrate -p capacity *"
+##             sbatch \
+##               --job-name=lfsmigrate.${CYLC_TASK_CYCLE_POINT}.${CYLC_TASK_NAME} \
+##               --output=log_lfsmigrate.${CYLC_TASK_CYCLE_POINT}.${CYLC_TASK_NAME}.txt \
+##               --partition=workq \
+##               --account={{projectid}} \
+##               --time=23:59:00 \
+##               --wrap=" set -uex && \
+##                     cd ${CYLC_WORKFLOW_WORK_DIR}/${CYLC_TASK_CYCLE_POINT}/${CYLC_TASK_NAME} && \
+##                     lfs migrate -p capacity *"
             """
         platform=shaheennew
         [[[environment]]]
