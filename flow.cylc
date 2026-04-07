@@ -91,7 +91,8 @@
         script = """
             mkdir -p ${CYLC_WORKFLOW_SHARE_DIR}/bin
             cd ${CYLC_WORKFLOW_SHARE_DIR}/bin
-            wget https://www.7-zip.org/a/7z2408-linux-x64.tar.xz 
+            #wget https://www.7-zip.org/a/7z2408-linux-x64.tar.xz 
+            wget https://sourceforge.net/projects/sevenzip/files/7-Zip/24.08/7z2408-linux-x64.tar.xz/download -O 7z2408-linux-x64.tar.xz
             tar -xvf 7z2408-linux-x64.tar.xz 
         """
 
