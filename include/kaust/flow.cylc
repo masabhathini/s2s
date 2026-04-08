@@ -164,5 +164,6 @@
         script = """
             echo "Push data to vizualization server"
             cd ${CYCLE_SHARE_DIR}/viz/
-            rsync -r -P * kw61469:/home/pammirp/data/live/ncm/subseasonal
+            #rsync -r -P * kw61469:/home/pammirp/data/live/ncm/subseasonal
+            rsync -avz --progress -e "ssh -c aes128-ctr"  -r -P * kw61469:/home/pammirp/data/live/ncm/subseasonal/
         """
