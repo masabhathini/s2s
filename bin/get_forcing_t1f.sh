@@ -64,7 +64,8 @@ __koimain() {
     grib_set -s stepRange=${j} ${soilfile}.0000 ${soilfile}.${jj}
     grib_set -s stepRange=${j} ${lsmfile}.0000 ${lsmfile}.${jj}
     grep ":${j}hr fcst:" <inv | wgrib -i "$tmpfile" -s -grib -o "${tmpfile}.${jj}" >/dev/null
-    cat ${soilfile}.${jj} ${lsmfile}.${jj} >> ${tmpfile}.${jj}
+    #cat ${soilfile}.${jj} ${lsmfile}.${jj} >> ${tmpfile}.${jj}
+    cat ${soilfile}.${jj} ${tmpfile}.${jj} >> ${lsmfile}.${jj}
   done
   cat "${tmpfile}".* >"${output}"
   rm inv "${tmpfile}".* ${soilfile}* ${lsmfile}*

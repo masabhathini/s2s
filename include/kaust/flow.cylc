@@ -124,7 +124,7 @@
             nproc_y={{ nproc_y }}
 
     [[UNGRIB, METGRID, GET_FORCING, MERGE_TIME, CLEAN_UP]]
-        execution time limit = PT3H
+        execution time limit = PT1H
         [[[directives]]]
             --account={{projectid}}
             --ntasks = 1
