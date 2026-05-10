@@ -119,7 +119,7 @@
         script = """
             rm -rf *
             mkdir -p $MEM_SHARE_DIR
-            get_forcing.sh -i $input_data -m $memN -o ungrib_input.grib --year $syyyy $lsm_input
+            get_forcing_t1f.sh -i $input_data -m $memN -o ungrib_input.grib --year $syyyy $lsm_input
             mv ungrib_input.grib $MEM_SHARE_DIR
             rm -rf *
         """
@@ -127,14 +127,14 @@
     [[get_forcing_F<mem>]]
         inherit = GET_FORCING, FORECAST_MEMBER
         [[[environment]]]
-            input_data={{FORCING_DATA_DIR}}/A1F${iyyyy}${imm}${idd}/${iyyyy}${imm}${idd}.grb
+            input_data={{FORCING_DATA_DIR}}/T1F${iyyyy}${imm}${idd}/${iyyyy}${imm}${idd}.grb
             lsm_input=""
 
     [[get_forcing<rf><memh>]]
         inherit = GET_FORCING, REFORECAST_MEMBER
         [[[environment]]]
-            input_data={{FORCING_DATA_DIR}}/A1H${iyyyy}${imm}${idd}/${iyyyy}${imm}${idd}.grb
-            lsm_input="--lsminput {{FORCING_DATA_DIR}}/A1F${iyyyy}${imm}${idd}/${iyyyy}${imm}${idd}.grb"
+            input_data={{FORCING_DATA_DIR}}/T1H${iyyyy}${imm}${idd}/${iyyyy}${imm}${idd}.grb
+            lsm_input="--lsminput {{FORCING_DATA_DIR}}/T1F${iyyyy}${imm}${idd}/${iyyyy}${imm}${idd}.grb"
 
 
     [[UNGRIB]]

@@ -61,20 +61,13 @@ __koimain() {
   for ((k = 1; k <= $((nday * 2)); k++)); do
     j=$((k * 12))
     jj=$(printf "%04d\n" $j)
-    #grib_set -s stepRange=${j},dataType="pf" ${soilfile}.0000 ${soilfile}.${jj}
-    #grib_set -s stepRange=${j},dataType="pf" ${lsmfile}.0000 ${lsmfile}.${jj}
     grib_set -s stepRange=${j} ${soilfile}.0000 ${soilfile}.${jj}
     grib_set -s stepRange=${j} ${lsmfile}.0000 ${lsmfile}.${jj}
     grep ":${j}hr fcst:" <inv | wgrib -i "$tmpfile" -s -grib -o "${tmpfile}.${jj}" >/dev/null
     cat ${soilfile}.${jj} ${lsmfile}.${jj} >> ${tmpfile}.${jj}
   done
   cat "${tmpfile}".* >"${output}"
-  #rm inv "${tmpfile}".*
-
-#  # Patching SST with buffer zone so that metgrid interplotes it correctly
-#  cdo -s -fillmiss2 -ifthen -ltc,0.01 lsm.grb -selvar,var34 "cleaned_sorted_$tmpfile" "SST_$tmpfile"
-#
-#  cdo -s -replace "cleaned_sorted_$tmpfile" "SST_$tmpfile" "$output"
+  rm inv "${tmpfile}".* ${soilfile}* ${lsmfile}*
 
 }
 
