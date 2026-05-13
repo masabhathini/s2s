@@ -17,7 +17,7 @@ __koimain() {
 
   __parseargs "$@"
 
-  set -u
+  set -ux
 
   inv=${input}.inv
 
@@ -56,19 +56,19 @@ __koimain() {
 
   # Sort in time for ungrib compatibility
   grep ':anl:' <inv | wgrib -i $tmpfile -s -grib -o "${tmpfile}.0000" >/dev/null
-#  grib_set -s dataType="cf" "tmp.${soilfile}.0000" "${soilfile}.0000"
-  cat "${lsmfile}.0000" "${soilfile}.0000" >> "${tmpfile}.0000"
+  #grib_set -s dataType="cf" "tmp.${soilfile}.0000" "${soilfile}.0000"
+  cat ${soilfile}.0000 ${tmpfile}.0000 >> tmp.${lsmfile}.0000
   for ((k = 1; k <= $((nday * 2)); k++)); do
     j=$((k * 12))
     jj=$(printf "%04d\n" $j)
-    grib_set -s stepRange=${j} ${soilfile}.0000 ${soilfile}.${jj}
-    grib_set -s stepRange=${j} ${lsmfile}.0000 ${lsmfile}.${jj}
+    grib_set -s indicatorOfUnitOfTimeRange=1,P1=1,stepRange=${j} ${soilfile}.0000 ${soilfile}.${jj}
+    grib_set -s indicatorOfUnitOfTimeRange=1,P1=1,stepRange=${j} ${lsmfile}.0000 ${lsmfile}.${jj}
     grep ":${j}hr fcst:" <inv | wgrib -i "$tmpfile" -s -grib -o "${tmpfile}.${jj}" >/dev/null
     #cat ${soilfile}.${jj} ${lsmfile}.${jj} >> ${tmpfile}.${jj}
-    cat ${soilfile}.${jj} ${tmpfile}.${jj} >> ${lsmfile}.${jj}
+    cat ${soilfile}.${jj} ${tmpfile}.${jj} >> tmp.${lsmfile}.${jj}
   done
-  cat "${tmpfile}".* >"${output}"
-  rm inv "${tmpfile}".* ${soilfile}* ${lsmfile}*
+  cat "tmp.${lsmfile}".* >"${output}"
+  #rm inv "${tmpfile}".* ${soilfile}* ${lsmfile}* tmp.${lsmfile}.*
 
 }
 
