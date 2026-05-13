@@ -117,11 +117,12 @@
 
     [[GET_FORCING]]
         script = """
+            set -uex
             rm -rf *
             mkdir -p $MEM_SHARE_DIR
-            get_forcing_t1f.sh -i $input_data -m $memN -o ungrib_input.grib --year $syyyy $lsm_input
-            mv ungrib_input.grib $MEM_SHARE_DIR
-            rm -rf *
+            ${CYLC_WORKFLOW_RUN_DIR}/bin/get_forcing_t1f.sh -i $input_data -m $memN -o ungrib_input.grib --year $syyyy $lsm_input
+            cp ungrib_input.grib $MEM_SHARE_DIR
+            #rm -rf *
         """
 
     [[get_forcing_F<mem>]]

@@ -58,15 +58,25 @@ __koimain() {
   grep ':anl:' <inv | wgrib -i $tmpfile -s -grib -o "${tmpfile}.0000" >/dev/null
   #grib_set -s dataType="cf" "tmp.${soilfile}.0000" "${soilfile}.0000"
   cat ${soilfile}.0000 ${tmpfile}.0000 >> tmp.${lsmfile}.0000
-  for ((k = 1; k <= $((nday * 2)); k++)); do
+  for ((k = 1; k <= 21; k++)); do
     j=$((k * 12))
     jj=$(printf "%04d\n" $j)
-    grib_set -s indicatorOfUnitOfTimeRange=1,P1=1,stepRange=${j} ${soilfile}.0000 ${soilfile}.${jj}
-    grib_set -s indicatorOfUnitOfTimeRange=1,P1=1,stepRange=${j} ${lsmfile}.0000 ${lsmfile}.${jj}
+    grib_set -s indicatorOfUnitOfTimeRange=1,P1=${j},stepRange=${j} ${soilfile}.0000 ${soilfile}.${jj}
+    grib_set -s indicatorOfUnitOfTimeRange=1,P1=${j},stepRange=${j} ${lsmfile}.0000 ${lsmfile}.${jj}
     grep ":${j}hr fcst:" <inv | wgrib -i "$tmpfile" -s -grib -o "${tmpfile}.${jj}" >/dev/null
-    #cat ${soilfile}.${jj} ${lsmfile}.${jj} >> ${tmpfile}.${jj}
     cat ${soilfile}.${jj} ${tmpfile}.${jj} >> tmp.${lsmfile}.${jj}
   done
+  for ((k=22; k<=92; k++)); do
+    l=$(( (k-22)/22 + 1 ))
+    j=$(( ((k-1)%22) * 12 ))
+    jj=$((k * 12))
+    jjj=$(printf "%04d\n" $jj)
+    grib_set -s timeRangeIndicator=10,indicatorOfUnitOfTimeRange=${l},P1=${j},P2=0,stepRange=${jj} ${soilfile}.0000 ${soilfile}.${jjj}
+    grib_set -s timeRangeIndicator=10,indicatorOfUnitOfTimeRange=${l},P1=${j},P2=0,stepRange=${jj} ${lsmfile}.0000 ${lsmfile}.${jjj}
+    grep ":${jj}hr fcst:" <inv | wgrib -i "$tmpfile" -s -grib -o "${tmpfile}.${jjj}" >/dev/null
+    cat ${soilfile}.${jjj} ${tmpfile}.${jjj} >> tmp.${lsmfile}.${jjj}
+  done
+  
   cat "tmp.${lsmfile}".* >"${output}"
   #rm inv "${tmpfile}".* ${soilfile}* ${lsmfile}* tmp.${lsmfile}.*
 

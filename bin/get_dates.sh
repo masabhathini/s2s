@@ -2,7 +2,8 @@
 
 set -ex
 input_file=$MEM_SHARE_DIR/ungrib_input.grib
-sdate=$(cdo -showtimestamp -seltimestep,1 $input_file | xargs)
+#sdate=$(cdo -showtimestamp -seltimestep,1 $input_file | xargs)
+sdate=$(isodatetime $CYLC_TASK_CYCLE_POINT -f "%Y-%m-%dT%H")
 edate=$(cylc cycle-point --offset=${FCSTDURATION} ${sdate})
 export syyyy=${sdate:0:4}
 export smm=${sdate:5:2}
